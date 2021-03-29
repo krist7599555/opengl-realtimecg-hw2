@@ -21,6 +21,7 @@
 // #define _WIN32
 
 #include "opengl.hpp"
+
 template<typename T>
 struct Vec3 {
 	T x, y, z;
@@ -135,19 +136,11 @@ void RenderObjects(void)
 
 	// Child object (teapot) ... relative transform, and render
 	glPushMatrix();
-	
-	// OLD
-	// glTranslatef(2, 0, 0);
-	// NEW
 	glTranslatef(
 		teapot_translate.x, 
 		teapot_translate.y,
 		teapot_translate.z
 	);
-
-	// OLD
-	// glRotatef(45, 1, 0, 0);
-	// NEW
 	glRotatef(teapot_rotate.x, 1, 0, 0);
 	glRotatef(teapot_rotate.y, 0, 1, 0);
 	glRotatef(teapot_rotate.z, 0, 0, 1);
@@ -172,7 +165,6 @@ void display(void)
 	glLoadIdentity();
 
 	// Modify here
-	// gluLookAt(2, 1, g_fViewDistance, 0, 0, 0, 0, 1, 0);
 	gluLookAt(
 		cam_position.x, cam_position.y, cam_position.x,
 		cam_lookat.x, cam_lookat.y, cam_lookat.z,
@@ -362,10 +354,8 @@ void Keyboard(unsigned char key, int x, int y)
 	// 3a
 	cam_position.y += TRANSLATEION_FACTOR * direction(k, 's', 'w');
 	cam_lookat.y   += TRANSLATEION_FACTOR * direction(k, 's', 'w');
-
 	cam_position.x += TRANSLATEION_FACTOR * direction(k, 'a', 'd');
 	cam_lookat.x   += TRANSLATEION_FACTOR * direction(k, 'a', 'd');
-
 	cam_position.z += TRANSLATEION_FACTOR * direction(k, 'q', 'e');
 	cam_lookat.z   += TRANSLATEION_FACTOR * direction(k, 'q', 'e');
 
@@ -381,9 +371,7 @@ void Keyboard(unsigned char key, int x, int y)
 	
 	// 3d
 	if (k == '1') {
-		cam_lookat = is_look_teapot
-			? Vec3<GLfloat>(0, 0, 0)
-			: teapot_translate;
+		cam_lookat = is_look_teapot ? Vec3<GLfloat>(0, 0, 0) : teapot_translate;
 		is_look_teapot = !is_look_teapot;
 	}
 
